@@ -1,2 +1,2 @@
-# MonkeyGo
-Catch the bananas
+#Monkey go happy with camera view
+:)

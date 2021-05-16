@@ -14,11 +14,12 @@ var time = 0;
 
 function preload(){
   
-  
-  monkey_running =            loadAnimation("sprite_0.png","sprite_1.png","sprite_2.png","sprite_3.png","sprite_4.png","sprite_5.png","sprite_6.png","sprite_7.png","sprite_8.png")
+  monkey_running=loadAnimation("Monkey_01.png","Monkey_02.png","Monkey_03.png",
+  "Monkey_04.png","Monkey_05.png","Monkey_06.png","Monkey_07.png","Monkey_08.png",
+  "Monkey_09.png","Monkey_10.png");
   
   bananaImage = loadImage("banana.png");
-  obstacleImage = loadImage("obstacle.png");
+  obstacleImage = loadImage("stone.png");
  
   groundImage = loadImage("jungle.jpg");
 }
@@ -26,15 +27,13 @@ function preload(){
 function setup() {
   createCanvas(400,400);
 
-  ground = createSprite (70,200,80,20);
+  ground = createSprite(70,200,80,20);
   ground.addImage("jungle",groundImage);
   ground.scale=1;
   ground.velocityX=-4;
   ground.x=ground.width/2;
   
   backg = createSprite(70,380,800,20);
-  backg.velocityX=-4;
-  backg.x=backg.width/2;
   backg.visible=false;
   
   monkey = createSprite(100,370,20,20);
@@ -49,9 +48,6 @@ function setup() {
 function draw() {
   background("green");
   
-   if (backg.x<0){
-      backg.x = backg.width/2;
-   }
   
   if (ground.x<0){
     ground.x = ground.width/2;
@@ -91,19 +87,22 @@ switch (score)
     
   food();
   obstacle();
+
+  camera.position.x=displayWidth/8;
+  camera.position.y=monkey.y;
   
   drawSprites();
-  
+
   stroke("white");
   textSize(15);
   fill("white");
-  text("Score: "+score,300,50);
+  text("Score: "+score,250,150);
   
   stroke("black");
   textSize(15);
   fill("black");
   time=Math.ceil(frameCount/frameRate());
-  text("Survival Time: " + time,100,50);
+  text("Survival Time: " + time,100,150);
   
 }
 
@@ -113,7 +112,7 @@ function food()
     {
       var banana = createSprite(600,100,20,20);
       banana.addImage(bananaImage);
-      banana.scale=0.07;
+      banana.scale=0.04;
       banana.y = Math.round(random(200,300));
       banana.velocityX = -(8+(score/10));
       banana.lifetime=80;
@@ -124,12 +123,12 @@ function food()
 
 function obstacle()
 {
-  if(frameCount % 300===0)
+  if(frameCount % 200===0)
     {
       var rock = createSprite(600,350,20,20);
       rock.addImage(obstacleImage);
-      rock.scale=0.1;
-      rock.velocityX = -(8+(score/10));
+      rock.scale=0.3;
+      rock.velocityX = -(9+(score/10));
       rock.lifetime=80;
       
       obstacleGroup.add(rock);
